@@ -13,4 +13,8 @@
     htop
     zsh
   ];
+  environment.variables = with pkgs; {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 }
