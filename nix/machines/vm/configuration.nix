@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../roles/base
+      ../../roles/dev
     ];
 
   # Bootloader.
