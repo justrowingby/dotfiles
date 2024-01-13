@@ -1,0 +1,8 @@
+{
+	"servers": {
+		"nix": {
+			"command": ["rnix-lsp"],
+			"highlightingModeRegex": "^Nix$"
+		}
+	}
+}

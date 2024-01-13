@@ -13,11 +13,14 @@ let
   ];
 in
 {
-    environment.systemPackages = with pkgs; [
-        git
-        direnv
+  environment.systemPackages = with pkgs; [
+    git
+    direnv
 
     gitAndTools.delta
+
+    man-pages
+    man-pages-posix
 
     dtach
     tmux
@@ -35,30 +38,30 @@ in
     p7zip
     unzip
 
-        (python3.withPackages pyPkgs)
+    (python3.withPackages pyPkgs)
 
-  git-credential-oauth
-  git-absorb
-  git-revise
-  nix-direnv
-  nix-doc
-  nix-index
-  nixpkgs-fmt
-  nodePackages.bash-language-server
-  rnix-lsp
-  nixd
-  rustfilt
-  shellcheck
-  typst-lsp
-  typst
-  diffoscope
+    git-credential-oauth
+    git-absorb
+    git-revise
+    nix-direnv
+    nix-doc
+    nix-index
+    nixpkgs-fmt
+    nodePackages.bash-language-server
+    rnix-lsp
+    nixd
+    rustfilt
+    shellcheck
+    typst-lsp
+    typst
+    diffoscope
 
-  nix-output-monitor
+    nix-output-monitor
 
-  simple-http-server
-    ];
+    simple-http-server
+  ];
 
-    nix.settings = lib.mkMerge [
+  nix.settings = lib.mkMerge [
     (lib.mkIf pkgs.stdenv.isLinux {
       plugin-files = "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
     })

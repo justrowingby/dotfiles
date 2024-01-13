@@ -6,15 +6,22 @@
     flake-registry = "";
   };
 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
     file
-    tree
     htop
+    neovim
+    tree
+    wget
     zsh
   ];
+
   environment.variables = with pkgs; {
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 }
