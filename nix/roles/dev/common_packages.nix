@@ -35,7 +35,7 @@ with pkgs; [
   nix-output-monitor # pipe nix-build into nom and it creates nice graph visualization of your build progress. wiggles has contributed to this.
   shellcheck # run this on a bash program and it'll tell you what your bash crimes are. like really bully you fr not knowing how to write bash.
   rustfilt # if you get bad rust stacktraces that are "mangled", we're told this helps
-  diffoscope # hardcore two file diff software, whether the files are tarballs, iso images, directories, whatever. will recursively figure out as much diffable structure as possible.
+  # diffoscope # hardcore two file diff software, whether the files are tarballs, iso images, directories, whatever. will recursively figure out as much diffable structure as possible.
   typst # the typst compiler, for writing markdown-ish w LaTeX-ish in it
   typst-lsp
   nodePackages.bash-language-server # a bash language server
@@ -48,7 +48,7 @@ with pkgs; [
 
   ## aspirationally included software (software we've used but haven't touched in at least a year)
 
-  gdb # it's gdb.
+  # gdb # it's gdb.
   racket-minimal # we might want to grab  a racket repl sometimes
   xxd # for dumping raw hex or bytes, and probably C crimes
 ]
