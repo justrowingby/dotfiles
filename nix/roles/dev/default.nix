@@ -11,55 +11,15 @@ let
 
     numpy
   ];
+  commonPkgs = import ./common_packages.nix;
 in
 {
-  environment.systemPackages = with pkgs; [
-    git
-    direnv
-
-    gitAndTools.delta
-
-    man-pages
-    man-pages-posix
-
-    dtach
-    tmux
-    gh
-    fd
-    gdb
-    jq
-    graphviz
-    ctags
-    moreutils
-    git-lfs
-
-    xxd
-
-    p7zip
-    unzip
-
+  environment.systemPackages = with pkgs; ((commonPkgs pkgs) ++ [
+    man-pages # linux man pages for nixOS installs
+    man-pages-posix # posix man pages for nixOS installs
+    dtach # tmux's persistent sessions w/o the multiplexing window manager we only use via iterm2integration
     (python3.withPackages pyPkgs)
-
-    git-credential-oauth
-    git-absorb
-    git-revise
-    nix-direnv
-    nix-doc
-    nix-index
-    nixpkgs-fmt
-    nodePackages.bash-language-server
-    rnix-lsp
-    nixd
-    rustfilt
-    shellcheck
-    typst-lsp
-    typst
-    diffoscope
-
-    nix-output-monitor
-
-    simple-http-server
-  ];
+  ]);
 
   nix.settings = lib.mkMerge [
     (lib.mkIf pkgs.stdenv.isLinux {
