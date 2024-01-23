@@ -4,6 +4,8 @@ with pkgs; [
 
   ffmpeg # it's ffmpeg.
   gnutar # the tar that ships on macOS is so unbelievably unusable, use this instead
+  gnused # another GNU util we want on macOS
+  gnugrep # another GNU util we want on macOS
   yt-dlp # the latterday fork of deceased youtube-dl
   git # you always need git on the CLI
   git-credential-oauth # for OAuthing to common remote locations
