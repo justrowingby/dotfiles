@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ohmyzsh/ohmyzsh
+	branch = master
+	commit = f7b647e1b13ed9cd2f34f3559c112e61b8c03108
+	parent = f4e1cea6e682fe9026c93d7212cf75dc9bab9c8f
+	method = merge
+	cmdver = 0.4.6
