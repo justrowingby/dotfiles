@@ -2,7 +2,7 @@
 
 scriptdir=$(cd "$(dirname -- "$0")" ; pwd -P)
 
-function do_dir() {
+function enact_link() {
     if [[ -e "$2" && ! -L "$2" ]] ; then 
         echo "$2 exists and is not a symlink. not replacing." >&2
         return 1
@@ -17,5 +17,6 @@ function do_dir() {
 }
 
 mkdir -p ~/.config
-do_dir git ~/.config/git
-do_dir kate ~/.config/kate
+enact_link git ~/.config/git
+enact_link kate ~/.config/kate
+
