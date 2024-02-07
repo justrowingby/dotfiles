@@ -19,4 +19,7 @@ function enact_link() {
 mkdir -p ~/.config
 enact_link git ~/.config/git
 enact_link kate ~/.config/kate
+enact_link zsh/zprofile.sh ~/.zprofile
+enact_link zsh/zshrc.sh ~/.zshrc
+enact_link subrepos/ohmyzsh ~/.oh-my-zsh
 
