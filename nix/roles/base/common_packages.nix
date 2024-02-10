@@ -1,9 +1,9 @@
 pkgs:
 with pkgs; [
+  eza
   file
   htop
   neovim
-  lsd
   tree
   wget
 ]
