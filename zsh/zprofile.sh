@@ -7,3 +7,6 @@ if [[ "$(uname)" == "Darwin" && -f '/nix/var/nix/profiles/default/etc/profile.d/
 	source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
+# PATH prepends
+[[ -d "$HOME/dotfiles/git-subcommands" ]] && export PATH="$HOME/dotfiles/git-subcommands:$PATH"
+
