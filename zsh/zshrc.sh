@@ -37,3 +37,6 @@ alias tla1="tla 1"
 alias tla2="tla 2"
 alias tla3="tla 3"
 
+# machine-specific changes
+[[ -f "$HOME/.zshrc_machine_specific.sh" ]] && source "$HOME/.zshrc_machine_specific.sh"
+
