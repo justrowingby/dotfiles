@@ -1,0 +1,5 @@
+This dir is intended to be a flat bag of git subcommand executables.
+
+If a subcommand needs its own source repo, the source should live in the subrepos dir and a symlink to the relevant executable should be maintained here. 
+Commands linked in this way are expected not to depend on $0 or $BASH_SOURCE[0] not being a symlink.
+
