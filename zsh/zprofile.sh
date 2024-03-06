@@ -10,6 +10,9 @@ fi
 # PATH prepends
 [[ -d "$HOME/dotfiles/git-subcommands" ]] && export PATH="$HOME/dotfiles/git-subcommands:$PATH"
 
+# MAN prepends
+[[ -d "$HOME/dotfiles/subrepos/git-subrepo" ]] && export MANPATH="$HOME/dotfiles/subrepos/git-subrepo/man:$MANPATH"
+
 # machine-specific changes
 [[ -f "$HOME/.zprofile_machine_specific.sh" ]] && source "$HOME/.zprofile_machine_specific.sh"
 

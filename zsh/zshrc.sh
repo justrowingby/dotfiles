@@ -10,6 +10,9 @@ source $ZSH/oh-my-zsh.sh
 
 # function definitions and aliases
 
+# completions
+[[ -d "$HOME/dotfiles/subrepos/git-subrepo" ]] && source "$HOME/dotfiles/subrepos/git-subrepo/share/enable-completion.sh"
+
 # ls-like eza aliases
 alias ls="eza" # ls drop-in, this *should* be fine cz any software grabbing ls from path is busted garbage.
 alias la="eza -a" # ls but show hidden files
