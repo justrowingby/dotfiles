@@ -8,7 +8,7 @@
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./machines/vm/configuration.nix
+        ../machines/vm/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
             type = "path";
@@ -22,8 +22,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      commonBasePkgs = import ./roles/base/common_packages.nix;
-      commonDevPkgs = import ./roles/dev/common_packages.nix;
+      commonBasePkgs = import ../roles/base/common_packages.nix;
     in
     {
       # Any extra arguments to mkProfile are forwarded directly to pkgs.buildEnv.
@@ -43,7 +42,7 @@
         inherit pkgs;
         # Specifies things to pin in the flake registry and in NIX_PATH.
         pinned = { nixpkgs = toString nixpkgs; };
-        paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
+        paths = (commonBasePkgs pkgs);
       };
     }
   ));

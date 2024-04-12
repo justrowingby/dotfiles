@@ -7,7 +7,6 @@ with pkgs; [
   gnused # another GNU util we want on macOS
   gnugrep # another GNU util we want on macOS
   yt-dlp # the latterday fork of deceased youtube-dl
-  git # you always need git on the CLI
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
   tmux # screen but with nice iterm2 integration on macOS
@@ -40,9 +39,6 @@ with pkgs; [
   # diffoscope # hardcore two file diff software, whether the files are tarballs, iso images, directories, whatever. will recursively figure out as much diffable structure as possible.
   typst # the typst compiler, for writing markdown-ish w LaTeX-ish in it
   typst-lsp
-  nodePackages.bash-language-server # a bash language server
-  nixd # a nix lang server that we're not seen be jank in kate on nixOS VM
-  nixpkgs-fmt
   graphviz # for making autogen'd graphs like we've seen in java applets showing data relations in knowledge bases
   p7zip # for when you want lz or whatever
   simple-http-server # minimal http server, written in rust, we're told it's dependable enough to use in demos (unlike the typical python one)
