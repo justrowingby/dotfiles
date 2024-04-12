@@ -19,8 +19,17 @@
     };
   } // (flake-utils.lib.eachDefaultSystem (system:
     let
+      git44Overlay = final: prev: {
+        git = prev.git.overrideAttrs { 
+	  src = final.fetchurl {
+	    url = "https://www.kernel.org/pub/software/scm/git/git-2.44.0.tar.xz";
+	    hash = "";
+	  };
+	};
+      };
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system;	
+	overlays = [ git44Overlay ];
       };
       commonBasePkgs = import ./roles/base/common_packages.nix;
       commonDevPkgs = import ./roles/dev/common_packages.nix;
