@@ -41,7 +41,6 @@ with pkgs; [
   typst # the typst compiler, for writing markdown-ish w LaTeX-ish in it
   typst-lsp
   nodePackages.bash-language-server # a bash language server
-  rnix-lsp # a nix lang server that we've seen be jank in kate on nixOS VM
   nixd # a nix lang server that we're not seen be jank in kate on nixOS VM
   nixpkgs-fmt
   graphviz # for making autogen'd graphs like we've seen in java applets showing data relations in knowledge bases
