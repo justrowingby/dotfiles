@@ -13,6 +13,7 @@ source $ZSH/oh-my-zsh.sh
 # completions
 [[ -d "$HOME/dotfiles/subrepos/git-subrepo" ]] && source "$HOME/dotfiles/subrepos/git-subrepo/share/enable-completion.sh"
 
+if (command -v eza &>/dev/null && [[ "$NO_EZA" != true ]] ) then
 # ls-like eza aliases
 alias ls="eza" # ls drop-in, this *should* be fine cz any software grabbing ls from path is busted garbage.
 alias la="eza -a" # ls but show hidden files
@@ -39,6 +40,7 @@ alias tl3="tl 3"
 alias tla1="tla 1"
 alias tla2="tla 2"
 alias tla3="tla 3"
+fi
 
 # machine-specific changes
 [[ -f "$HOME/.zshrc_machine_specific.sh" ]] && source "$HOME/.zshrc_machine_specific.sh"
