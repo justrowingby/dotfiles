@@ -9,6 +9,7 @@ with pkgs; [
   yt-dlp # the latterday fork of deceased youtube-dl
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
+  nix-diff # for diffing derivations
   tmux # screen but with nice iterm2 integration on macOS
   unzip # for unzipping.
   /* notably lacking is python3.
