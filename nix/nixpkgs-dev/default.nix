@@ -26,8 +26,12 @@ let
   pkgs = import <nixpkgs> { };
   */
 
+  git-next-overlay = import ../overlays/git-next.nix;
+
   # mildly less convenient, but pinned:
-  pkgs = import sources.nixpkgs-dev { };
+  pkgs = import sources.nixpkgs-dev {
+    overlays = [ git-next-overlay ];
+  };
 
   flakey-profile = import (sources.flakey-profile + "/lib");
 
@@ -46,7 +50,10 @@ in
     #   nix build -f . profile
     inherit pkgs;
     pinned = { inherit (sources) nixpkgs-dev; };
-    paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs) ++
-    (with pkgs; [ hello ]); # list remaining packages by name 
+    paths = (pkgs.lib.lists.remove (with pkgs; git) (commonBasePkgs pkgs))
+    ++ (commonDevPkgs pkgs)
+    ++ (with pkgs; [
+    git-next
+    ]); # list remaining packages by name
   };
 }
