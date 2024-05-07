@@ -9,5 +9,6 @@ with pkgs; [
   nixpkgs-fmt # you'll immediately want a nix formatter on a new machine
   nodePackages.bash-language-server # you'll immediately want a bash LSP on a new machine
   tree
+  wireguard-tools
   wget
 ]
