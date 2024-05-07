@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-nix run .#profile.switch
+nix --extra-experimental-features nix-command --extra-experimental-features flakes run .#profile.switch

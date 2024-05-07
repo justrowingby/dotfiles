@@ -2,11 +2,13 @@
   inputs = {
     flakey-profile.url = "github:lf-/flakey-profile";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-latest.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
-  outputs = { self, nixpkgs, flakey-profile, flake-utils }: {
+  outputs = { self, nixpkgs, nixpkgs-latest, flakey-profile, flake-utils }: {
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      
       modules = [
         ../machines/vm/configuration.nix
         ({ ... }: {
@@ -17,12 +19,35 @@
         })
       ];
     };
-  } // (flake-utils.lib.eachDefaultSystem (system:
+    nixosConfigurations.pearl = nixpkgs.lib.nixosSystem rec {
+      system = "x86_64-linux";
+      
+      # The `specialArgs` parameter passes the
+      # non-default nixpkgs instances to other nix modules
+      specialArgs = {
+        pkgs-latest = import nixpkgs-latest {
+	  inherit system;
+	  config.allowUnfree = true;
+	};
+      };
+      
+      modules = [
+        ../machines/pearl/configuration.nix
+        ({ ... }: {
+          nix.registry.nixpkgs.to = {
+            type = "path";
+            path = nixpkgs;
+          };
+        })
+      ];
+    };
+   } // (flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs {
         inherit system;
       };
       commonBasePkgs = import ../roles/base/common_packages.nix;
+      commonDevPkgs = import ../roles/dev/common_packages.nix;
     in
     {
       # Any extra arguments to mkProfile are forwarded directly to pkgs.buildEnv.
@@ -38,11 +63,17 @@
       # `nix run nixpkgs#hello` and `nix-shell -p hello --run hello` will
       # resolve to the same hello as below:
       #   sudo nix run .#profile.pin # [should pawbly be run as root]
-      packages.profile = flakey-profile.lib.mkProfile {
+      packages.bootstrap-profile = flakey-profile.lib.mkProfile {
         inherit pkgs;
         # Specifies things to pin in the flake registry and in NIX_PATH.
         pinned = { nixpkgs = toString nixpkgs; };
         paths = (commonBasePkgs pkgs);
+      };
+      packages.dev-profile = flakey-profile.lib.mkProfile {
+        inherit pkgs;
+        # Specifies things to pin in the flake registry and in NIX_PATH.
+        pinned = { nixpkgs = toString nixpkgs; };
+        paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
       };
     }
   ));

@@ -1,22 +1,38 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgs-latest, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
+    v4l-utils
+
     firefox
     kate
+
+    vesktop
+    telegram-desktop
+    signal-desktop
     # thunderbird
-  ];
+  ]) ++
+  (with pkgs-latest; [
+    #signal-desktop
+  ]);
+
+  programs.steam = {
+    enable = true;
+    # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  # Enable the KDE Plasma6 Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
