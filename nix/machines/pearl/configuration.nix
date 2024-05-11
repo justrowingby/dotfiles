@@ -54,10 +54,17 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.row = {
-    isNormalUser = true;
-    description = "Rowenna Emma";
-    extraGroups = [ "networkmanager" "wheel" ];
+  users.users = {
+    row = {
+      isNormalUser = true;
+      description = "Rowenna Emma";
+      extraGroups = [ "networkmanager" "wheel" ];
+    };
+    hecate = {
+      isNormalUser = true;
+      description = "hecate cantus";
+      extraGroups = [ "networkmanager" ];
+    };
   };
 
   # Enable automatic login for the user.
