@@ -33,7 +33,7 @@ with pkgs; [
   fd # find replacement written in rust
   ctags # for indexing source code
   nix-index # you have a regex pattern for a file? you think that file exists in the build of *some* package(s) in nixpkgs but don't have a clue which ones / what their name is? surely you would not regret simply grepping the entire set of files that exists in all of the derivations in nixpkgs
-  nix-doc # ctags for nix. also searchable  nix docs.
+  #nix-doc # ctags for nix. also searchable  nix docs.
   nix-output-monitor # pipe nix-build into nom and it creates nice graph visualization of your build progress. wiggles has contributed to this.
   shellcheck # run this on a bash program and it'll tell you what your bash crimes are. like really bully you fr not knowing how to write bash.
   rustfilt # if you get bad rust stacktraces that are "mangled", we're told this helps

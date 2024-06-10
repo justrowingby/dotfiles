@@ -3,9 +3,10 @@
     flakey-profile.url = "github:lf-/flakey-profile";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:nixos/nixpkgs";
+    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
-  outputs = { self, nixpkgs, nixpkgs-latest, flakey-profile, flake-utils }: {
+  outputs = { self, nixpkgs, nixpkgs-latest, nixpkgs-2311, flakey-profile, flake-utils }: {
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       
@@ -20,7 +21,7 @@
       ];
     };
     nixosConfigurations.pearl = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
+      system = "x86_64-linux"; 
       
       # The `specialArgs` parameter passes the
       # non-default nixpkgs instances to other nix modules
@@ -30,7 +31,7 @@
 	  config.allowUnfree = true;
 	};
       };
-      
+
       modules = [
         ../machines/pearl/configuration.nix
         ({ ... }: {
@@ -45,6 +46,7 @@
     let
       pkgs = import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
       };
       commonBasePkgs = import ../roles/base/common_packages.nix;
       commonDevPkgs = import ../roles/dev/common_packages.nix;

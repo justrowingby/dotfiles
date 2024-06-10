@@ -1,6 +1,6 @@
 { config, pkgs, lib, pkgs-latest, ... }:
 {
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = ((with pkgs; [
     v4l-utils
 
     firefox
@@ -10,10 +10,12 @@
     telegram-desktop
     signal-desktop
     # thunderbird
+
+    kdePackages.bluedevil
   ]) ++
   (with pkgs-latest; [
     #signal-desktop
-  ]);
+  ]));
 
   programs.steam = {
     enable = true;
@@ -21,22 +23,36 @@
     # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma6 Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  #services.displayManager.sddm.wayland.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      autoLogin = {
+        enable = true;
+	user = "row";
+      };
+      sddm = {
+        enable = true;
+        autoNumlock = true;
+        wayland = {
+          enable = true;
+	  compositor = "kwin";
+	};
+      };
+    };
+    desktopManager.plasma5.enable = true;
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
+
+  #services.xserver.displayManager.autoLogin.enable = true;
+  #services.xserver.displayManager.autoLogin.user = "row";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  
+  hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
