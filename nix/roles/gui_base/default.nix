@@ -25,33 +25,34 @@
 
   services.xserver = {
     enable = true;
-    displayManager = {
-      autoLogin = {
-        enable = true;
-	user = "row";
-      };
-      sddm = {
-        enable = true;
-        autoNumlock = true;
-        wayland = {
-          enable = true;
-	  compositor = "kwin";
-	};
-      };
-    };
-    desktopManager.plasma5.enable = true;
     xkb = {
       layout = "us";
       variant = "";
     };
   };
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "row";
+    };
+    sddm = {
+      enable = true;
+      autoNumlock = true;
+      wayland = {
+        enable = true;
+        compositor = "kwin";
+      };
+    };
+  };
+  #services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   #services.xserver.displayManager.autoLogin.enable = true;
   #services.xserver.displayManager.autoLogin.user = "row";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  
+
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
