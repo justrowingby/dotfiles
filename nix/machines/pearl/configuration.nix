@@ -20,6 +20,7 @@
 
   networking.hostName = "pearl-nixos"; # Define your hostname.
 
+  boot.kernelParams = ["gpu_sched.sched_policy=0"];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
