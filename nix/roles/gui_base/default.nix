@@ -9,8 +9,12 @@
     vesktop
     telegram-desktop
     signal-desktop
-    obs-studio
-    obs-studio-plugins.waveform
+
+    (pkgs.wrapOBS {
+       plugins = with pkgs.obs-studio-plugins; [
+         waveform
+       ];
+    })
 
     kitty
     kittysay
