@@ -9,9 +9,16 @@
     vesktop
     telegram-desktop
     signal-desktop
+    obs-studio
+
+    kitty
+    kittysay
+    kitty-img
+
     # thunderbird
 
     kdePackages.bluedevil
+    kdePackages.kwallet-pam
   ]) ++
   (with pkgs-latest; [
     #signal-desktop
@@ -32,7 +39,7 @@
   };
   services.displayManager = {
     autoLogin = {
-      enable = true;
+      enable = false;
       user = "row";
     };
     sddm = {
