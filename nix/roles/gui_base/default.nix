@@ -6,6 +6,8 @@
     firefox
     kate
 
+    vlc
+
     vesktop
     telegram-desktop
     signal-desktop
@@ -13,8 +15,12 @@
     (pkgs.wrapOBS {
        plugins = with pkgs.obs-studio-plugins; [
          waveform
+	 input-overlay
+	 obs-pipewire-audio-capture
        ];
     })
+
+    audacity
 
     kitty
     kittysay

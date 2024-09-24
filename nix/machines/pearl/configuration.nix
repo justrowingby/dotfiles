@@ -10,7 +10,6 @@
       ./hardware-configuration.nix
       ../../roles/base
       ../../roles/dev
-      ../../roles/network/devhack_wg.nix
       ../../roles/gui_base
     ];
 
@@ -21,6 +20,14 @@
   networking.hostName = "pearl-nixos"; # Define your hostname.
 
   boot.kernelParams = ["gpu_sched.sched_policy=0"];
+  
+  services.flatpak.enable = true;
+
+  environment.variables = {
+    NIXPKGS_ALLOW_UNFREE = 1;
+  };
+
+  nix.package = pkgs.lix;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -61,6 +68,11 @@
       isNormalUser = true;
       description = "Rowenna Emma";
       extraGroups = [ "networkmanager" "wheel" ];
+    };
+    mirmo = {
+      isNormalUser = true;
+      description = "mirmo";
+      extraGroups = ["networkmanager"];
     };
     hecate = {
       isNormalUser = true;
