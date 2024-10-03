@@ -30,6 +30,8 @@
 
     kdePackages.bluedevil
     kdePackages.kwallet-pam
+
+    libva-utils
   ]) ++
   (with pkgs-latest; [
     #signal-desktop
