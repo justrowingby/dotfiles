@@ -22,6 +22,7 @@
   boot.kernelParams = ["gpu_sched.sched_policy=0"];
   
   services.flatpak.enable = true;
+  services.tailscale.enable = true;
 
   environment.variables = {
     NIXPKGS_ALLOW_UNFREE = 1;
