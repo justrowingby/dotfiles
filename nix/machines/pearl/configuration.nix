@@ -24,11 +24,24 @@
   services.flatpak.enable = true;
   services.tailscale.enable = true;
 
+  services.resolved = {
+    enable = true;
+    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+  };
+
   environment.variables = {
     NIXPKGS_ALLOW_UNFREE = 1;
   };
 
   nix.package = pkgs.lix;
+
+  environment.systemPackages = ((with pkgs; [
+    epiphany
+    dconf-editor
+  ]) ++
+  (with pkgs-latest; [
+    #signal-desktop
+  ]));
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
