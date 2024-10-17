@@ -37,7 +37,6 @@
 
   environment.systemPackages = ((with pkgs; [
     epiphany
-    dconf-editor
   ]) ++
   (with pkgs-unstable; [
     #signal-desktop
