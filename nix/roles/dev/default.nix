@@ -21,18 +21,9 @@ in
     (python3.withPackages pyPkgs)
   ]);
 
-  nix.settings = lib.mkMerge [
-    (lib.mkIf pkgs.stdenv.isLinux {
-      plugin-files = "${pkgs.nix-doc}/lib/libnix_doc_plugin.so";
-    })
-    (lib.mkIf pkgs.stdenv.isDarwin {
-      plugin-files = "${pkgs.nix-doc}/lib/libnix_doc_plugin.dylib";
-    })
-    {
+  nix.settings = {
       # nix-direnv
       keep-outputs = true;
       keep-derivations = true;
-    }
-  ];
-
+  };
 }
