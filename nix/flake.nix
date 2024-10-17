@@ -7,28 +7,28 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = { self, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, flakey-profile, flake-utils }: {
-    nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
       modules = [
-        ../machines/vm/configuration.nix
+        machines/vm/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
             type = "path";
-            path = nixpkgs;
+            path = nixpkgs-stable;
           };
         })
       ];
     };
-    nixosConfigurations.pearl = nixpkgs.lib.nixosSystem rec {
+    nixosConfigurations.pearl = nixpkgs-stable.lib.nixosSystem rec {
       system = "x86_64-linux"; 
       
       modules = [
-        ../machines/pearl/configuration.nix
+        machines/pearl/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
             type = "path";
-            path = nixpkgs;
+            path = nixpkgs-stable;
           };
         })
       ];
@@ -53,8 +53,8 @@
         };
       };
       
-      commonBasePkgs = import ../roles/base/common_packages.nix;
-      commonDevPkgs = import ../roles/dev/common_packages.nix;
+      commonBasePkgs = import roles/base/common_packages.nix;
+      commonDevPkgs = import roles/dev/common_packages.nix;
     in
     {
       # Any extra arguments to mkProfile are forwarded directly to pkgs.buildEnv.
@@ -73,13 +73,13 @@
       packages.bootstrap-profile = flakey-profile.lib.mkProfile {
         inherit pkgs;
         # Specifies things to pin in the flake registry and in NIX_PATH.
-        pinned = { nixpkgs = toString nixpkgs; };
+        pinned = { nixpkgs = toString nixpkgs-stable; };
         paths = (commonBasePkgs pkgs);
       };
       packages.dev-profile = flakey-profile.lib.mkProfile {
         inherit pkgs;
         # Specifies things to pin in the flake registry and in NIX_PATH.
-        pinned = { nixpkgs = toString nixpkgs; };
+        pinned = { nixpkgs = toString nixpkgs-stable; };
         paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
       };
     }
