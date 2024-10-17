@@ -1,12 +1,12 @@
 {
   inputs = {
     flakey-profile.url = "github:lf-/flakey-profile";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-latest.url = "github:nixos/nixpkgs";
-    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-mainline.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
-  outputs = { self, nixpkgs, nixpkgs-latest, nixpkgs-2311, flakey-profile, flake-utils }: {
+  outputs = { self, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, flakey-profile, flake-utils }: {
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       
@@ -23,15 +23,6 @@
     nixosConfigurations.pearl = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux"; 
       
-      # The `specialArgs` parameter passes the
-      # non-default nixpkgs instances to other nix modules
-      specialArgs = {
-        pkgs-latest = import nixpkgs-latest {
-	  inherit system;
-	  config.allowUnfree = true;
-	};
-      };
-
       modules = [
         ../machines/pearl/configuration.nix
         ({ ... }: {
@@ -44,10 +35,24 @@
     };
    } // (flake-utils.lib.eachDefaultSystem (system:
     let
-      pkgs = import nixpkgs {
+      pkgs = import nixpkgs-stable {
         inherit system;
         config.allowUnfree = true;
       };
+      
+      # The `specialArgs` parameter passes the
+      # non-default nixpkgs instances to other nix modules
+      specialArgs = {
+        pkgs-unstable = import nixpkgs-unstable {
+	  inherit system;
+	  config-allowUnfree = true;
+	};
+        pkgs-mainline = import nixpkgs-mainline {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      };
+      
       commonBasePkgs = import ../roles/base/common_packages.nix;
       commonDevPkgs = import ../roles/dev/common_packages.nix;
     in
