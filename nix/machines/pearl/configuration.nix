@@ -23,6 +23,7 @@
   
   services.flatpak.enable = true;
   services.tailscale.enable = true;
+  services.hardware.openrgb.enable = true;
 
   services.resolved = {
     enable = true;
@@ -37,6 +38,7 @@
 
   environment.systemPackages = ((with pkgs; [
     epiphany
+    openrgb-with-all-plugins
   ]) ++
   (with pkgs-unstable; [
     #signal-desktop
