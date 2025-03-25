@@ -1,6 +1,11 @@
+set -gx EDITOR nvim
+set -gx PAGER less
+set -gx LANG en_US.UTF-8
+fish_add_path --path $HOME/dotfiles/git-subcommands
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    
+
     # tried and true
     abbr --add gits git status
     abbr --add gita git add
