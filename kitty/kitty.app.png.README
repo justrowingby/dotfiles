@@ -1,0 +1,10 @@
+the kitty icon i am using and redistributing here was fetched from https://github.com/sodapopcan/kitty-icon
+
+big ups to kitty dev for making this possible. i'm rly happy that i can get my ideal icon configuration declaratively by just including a 19 kB file in my git repo. 
+
+from https://sw.kovidgoyal.net/kitty/faq/#i-do-not-like-the-kitty-icon ...
+> You can put kitty.app.icns (macOS only) or kitty.app.png in the kitty configuration directory, and this icon will be applied automatically at startup. On X11 and Wayland, this will set the icon for kitty windows. Note that not all Wayland compositors support the protocol needed for changing window icons.
+
+ive included the file (kitty.app.png) along with its license (kitty.app.png.LICENSE) which permits me to redistribute it. both were fetched at the same time, some time in 2024. 
+
+big ups / tysm to the icon creator for allowing me to just include it in my repo raw rather than write some script which fetches it and thus depends on your repo still being hosted on github
