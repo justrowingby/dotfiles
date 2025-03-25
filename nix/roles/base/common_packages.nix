@@ -2,6 +2,7 @@ pkgs:
 with pkgs; [
   eza # you'll immediately want a nice ls on a new machine
   file
+  fish
   git # you'll immediately need git on a new machine
   htop
   neovim # you'll immediately need an editor on a new machine
