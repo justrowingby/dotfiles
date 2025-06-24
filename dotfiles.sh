@@ -16,6 +16,19 @@ function enact_link() {
     ln -sv "${scriptdir}/$1" "$2"
 }
 
+function rm_broken_link() {
+    if [[ -e "$1" ]] ; then 
+        echo "$1 exists, so is not a broken symlink. not deleting." >&2
+        return 1
+    fi
+    if [[ ! -L "$1" ]] ; then
+	# there is no link to remove! yay! probably re-entrant case.
+        return 0
+    fi
+    
+    rm "$1" && echo "deleted broken symlink $1"
+}
+
 mkdir -p ~/.config
 enact_link git ~/.config/git
 enact_link kate ~/.config/kate
@@ -23,5 +36,5 @@ enact_link kitty ~/.config/kitty
 enact_link fish ~/.config/fish
 enact_link zsh/zprofile.sh ~/.zprofile
 enact_link zsh/zshrc.sh ~/.zshrc
-enact_link subrepos/ohmyzsh ~/.oh-my-zsh
+rm_broken_link ~/.oh-my-zsh
 
