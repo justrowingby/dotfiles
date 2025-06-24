@@ -4,7 +4,7 @@
     v4l-utils
 
     firefox
-    kate
+    kdePackages.kate
 
     vlc
 
@@ -78,7 +78,7 @@
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

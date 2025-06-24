@@ -36,10 +36,10 @@ with pkgs; [
   #nix-doc # ctags for nix. also searchable  nix docs.
   nix-output-monitor # pipe nix-build into nom and it creates nice graph visualization of your build progress. wiggles has contributed to this.
   shellcheck # run this on a bash program and it'll tell you what your bash crimes are. like really bully you fr not knowing how to write bash.
-  rustfilt # if you get bad rust stacktraces that are "mangled", we're told this helps
+  # rustfilt # removed from nixpkgs due to lack of upstream maintenance # if you get bad rust stacktraces that are "mangled", we're told this helps
   # diffoscope # hardcore two file diff software, whether the files are tarballs, iso images, directories, whatever. will recursively figure out as much diffable structure as possible.
   typst # the typst compiler, for writing markdown-ish w LaTeX-ish in it
-  typst-lsp
+  tinymist # a typst lsp
   graphviz # for making autogen'd graphs like we've seen in java applets showing data relations in knowledge bases
   p7zip # for when you want lz or whatever
   simple-http-server # minimal http server, written in rust, we're told it's dependable enough to use in demos (unlike the typical python one)
