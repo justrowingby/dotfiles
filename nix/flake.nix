@@ -1,7 +1,7 @@
 {
   inputs = {
     flakey-profile.url = "github:lf-/flakey-profile";
-    nixpkgs-stable.url = "git+https://github.com/NixOS/nixpkgs?ref=nixos-25.05&rev=1258a0f5c8e642675755d214492917453e69e661"; # switch back to github:nixos/nixpkgs/nixos-25.05 once https://github.com/NixOS/nixpkgs/pull/419048 merged into nixos-25.05
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
