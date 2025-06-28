@@ -11,7 +11,7 @@ fi
 [[ -d "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # PATH prepends
-[[ -d "$HOME/dotfiles/git-subcommands" ]] && export PATH="$HOME/dotfiles/git-subcommands:$PATH"
+[[ -d "$HOME/dotfiles/sh-commands" ]] && export PATH="$HOME/dotfiles/sh-commands:$PATH"
 
 # MAN prepends
 [[ -d "$HOME/dotfiles/subrepos/git-subrepo" ]] && export MANPATH="$HOME/dotfiles/subrepos/git-subrepo/man:$MANPATH"

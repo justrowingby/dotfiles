@@ -1,7 +1,8 @@
 set -gx EDITOR nvim
 set -gx PAGER less
 set -gx LANG en_US.UTF-8
-fish_add_path --path $HOME/dotfiles/git-subcommands
+fish_add_path --path $HOME/dotfiles/sh-commands
+fish_add_path --path $HOME/.toolbox/bin
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
