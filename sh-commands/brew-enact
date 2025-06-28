@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ ! -x "$(command -v brew 2>&1)" ]] then
+	echo >&2 "brew-enact requires homebrew (\"brew\") but it is not available.  Aborting.";
+	exit 1;
+fi
+
+if [[ ! -f "$BREW_FILE" && ! -f "$HOME/.config/Brewfile" ]] then
+	echo >&2 "brew-enact requires a Brewfile located in BREW_FILE or HOME/.config/Brewfile.  Aborting.";
+	exit 1;
+fi
+
+brew update &&\
+	brew bundle install --cleanup --file="${BREW_FILE:=$HOME/.config/Brewfile}" &&\
+	brew upgrade
+
+
