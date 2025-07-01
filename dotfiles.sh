@@ -2,6 +2,16 @@
 
 scriptdir=$(cd "$(dirname -- "$0")" ; pwd -P)
 
+function default_link() {
+    if [[ -e "$2" ]] ; then 
+	# something already exists there. no need to create a default.
+        return 0
+    fi
+
+    ln -sv "${scriptdir}/$1" "$2"
+    
+}
+
 function enact_link() {
     if [[ -e "$2" && ! -L "$2" ]] ; then 
         echo "$2 exists and is not a symlink. not replacing." >&2
@@ -37,4 +47,5 @@ enact_link fish ~/.config/fish
 enact_link zsh/zprofile.sh ~/.zprofile
 enact_link zsh/zshrc.sh ~/.zshrc
 rm_broken_link ~/.oh-my-zsh
+default_link kitty/unchosen-kittyshell.bash kitty/kittyshell
 
