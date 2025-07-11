@@ -1,5 +1,6 @@
 pkgs:
 with pkgs; [
+  coreutils-prefixed
   eza # you'll immediately want a nice ls on a new machine
   file
   fish

@@ -16,6 +16,9 @@ if status is-interactive
     # new ones
     abbr --add gitca git commit --amend
     abbr --add gitad git add .
+
+    # gnu ls
+    abbr --add lltime gls -l -t -h --full-time
     
     # eza
     abbr --add lz eza
