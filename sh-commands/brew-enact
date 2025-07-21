@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ ! -x "$(command -v brew 2>&1)" ]] then
+if [[ ! -x "$(command -v brew 2>&1)" ]]; then
 	echo >&2 "brew-enact requires homebrew (\"brew\") but it is not available.  Aborting.";
 	exit 1;
 fi
 
-if [[ ! -d "$HOME/.config/Brewfile.d" || -n "$(find "$HOME/.config/Brewfile.d/" -maxdepth 0 -empty)" ]] then
+if [[ ! -d "$HOME/.config/Brewfile.d" || -n "$(find "$HOME/.config/Brewfile.d/" -maxdepth 0 -empty)" ]]; then
 	echo >&2 "brew-enact requires at least one Brewfile located in HOME/.config/Brewfile.d/  Aborting.";
 	exit 1;
 fi
