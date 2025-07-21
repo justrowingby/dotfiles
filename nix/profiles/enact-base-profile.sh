@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-nix --extra-experimental-features "nix-command flakes" run .#bootstrap-profile.switch
+
+scriptdir=$(cd "$(dirname -- "$0")" ; pwd -P)
+
+nix --extra-experimental-features "nix-command flakes" run "$scriptdir"/..#bootstrap-profile.switch
+sudo -i nix run "$scriptdir"/..#bootstrap-profile.pin
