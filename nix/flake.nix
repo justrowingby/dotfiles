@@ -5,12 +5,24 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    lix-src = {
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.flakey-profile.follows = "flakey-profile";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.lix.follows = "lix-src";
+    };
   };
-  outputs = { self, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, flakey-profile, flake-utils }: {
+  outputs = { self, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, lix-src, lix-module, flakey-profile, flake-utils }: {
     nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
       modules = [
+        lix-module.nixosModules.default
         machines/vm/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -24,6 +36,7 @@
       system = "x86_64-linux"; 
       
       modules = [
+        lix-module.nixosModules.default
         machines/pearl/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -82,6 +95,7 @@
         pinned = { nixpkgs = toString nixpkgs-stable; };
         paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
       };
+      packages.system-lix-profile = lix-module.packages."${system}".system-profile;
     }
   ));
 }
