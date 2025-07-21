@@ -7,6 +7,9 @@ if [[ "$(uname)" == "Darwin" && -f '/nix/var/nix/profiles/default/etc/profile.d/
 	source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
+# homebrew for abble sillycon
+[[ -d "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # PATH prepends
 [[ -d "$HOME/dotfiles/git-subcommands" ]] && export PATH="$HOME/dotfiles/git-subcommands:$PATH"
 
@@ -15,4 +18,5 @@ fi
 
 # machine-specific changes
 [[ -f "$HOME/.zprofile_machine_specific.sh" ]] && source "$HOME/.zprofile_machine_specific.sh"
+
 
