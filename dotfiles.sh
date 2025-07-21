@@ -39,6 +39,18 @@ function rm_broken_link() {
     rm "$1" && echo "deleted broken symlink $1"
 }
 
+function mk_config_dir_for_file() {
+    mkdir -p "$1.d"
+    if [[ -f "$1" ]] ; then
+        if [[ -L "$1" ]] ; then
+	    echo "$1 exists and is a symlink. not moving into $1.d in case it is a relative path." >&2
+	    return 1
+	fi
+	mv "$1" "$1.d"
+	echo "moved $1 to $1.d/"
+    fi
+}
+
 mkdir -p ~/.config
 enact_link git ~/.config/git
 enact_link kate ~/.config/kate
@@ -48,4 +60,5 @@ enact_link zsh/zprofile.sh ~/.zprofile
 enact_link zsh/zshrc.sh ~/.zshrc
 rm_broken_link ~/.oh-my-zsh
 default_link kitty/unchosen-kittyshell.bash kitty/kittyshell
+mk_config_dir_for_file ~/.config/Brewfile
 
