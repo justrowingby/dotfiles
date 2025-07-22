@@ -10,6 +10,7 @@ with pkgs; [
   nil # you'll immediately want a nix LSP on a new machine
   nixpkgs-fmt # you'll immediately want a nix formatter on a new machine
   nodePackages.bash-language-server # you'll immediately want a bash LSP on a new machine
+  openssh # ensure macOS profiles can use non-busted ssh tools
   tree
   wireguard-tools
   wget
