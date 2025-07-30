@@ -2,6 +2,7 @@ pkgs:
 with pkgs; [
   age-plugin-yubikey
   coreutils-prefixed
+  fd
   file
   fish
   git # you'll immediately need git on a new machine
