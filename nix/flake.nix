@@ -32,6 +32,20 @@
         })
       ];
     };
+    nixosConfigurations.infected-droplet = nixpkgs-stable.lib.nixosSystem {
+      system = "x86_64-linux";
+      
+      modules = [
+        lix-module.nixosModules.default
+        machines/infected-droplet/configuration.nix
+        ({ ... }: {
+          nix.registry.nixpkgs.to = {
+            type = "path";
+            path = nixpkgs-stable;
+          };
+        })
+      ];
+    };
     nixosConfigurations.pearl = nixpkgs-stable.lib.nixosSystem rec {
       system = "x86_64-linux"; 
       
