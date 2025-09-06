@@ -6,7 +6,7 @@ in
   nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+    experimental-features = [ "nix-command" "flakes" ];
     flake-registry = "";
   };
 
