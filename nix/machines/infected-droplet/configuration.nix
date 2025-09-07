@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }:
 let 
   rowKeys = [ 
     ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCWoOfRnmnpE0IVHyH+CGcOxeKkqssZkVqT2JIZqfgSo9AZcMCyIveXY/PLQfJY2fEMx292CZKouZHA8wtKM/QQLOJOjCupuD3WgO+Zex75QxIjEJtMczXFvQKsgNt6UUmLDYwc04X8Hk8zwO7HAZgQ+tvpWxkfQ/C1/wSMRvvxbTCLisRLWIkuDlGIi2lVGwFB6aMyhw0uuuLcg+aJR7SK/5SzB/+t/vt6sb/SZtxUW1hi/VmF4RNsfhhbfmv6XfTubsc/tgtIZ5g8M2P4N1s2lWgHSlsFoxgzW4IP+sKqXdD0kGAYJSvgCHIjAgxpVy4Ax8DfSuzqqTaT/76ADq+nI3xqAF9utpHi9M23zvbp0l0OS8ELrMuz++hq0BNggjK3gunlCRv2IvzdAiHKRAf9IUdOcaBS92JZTYlttFtK5uNrOE/79DPvLaCmUjtzxhJKC8i224lFy5wqqjwYGXKJsRi7P/xJJ0RY8NlB1QsVgEgwp7tcRvXcPAggY1eogAk= row@arrow.local''
@@ -18,6 +18,21 @@ in
   networking.domain = "";
   services.openssh.enable = true;
   services.do-agent.enable = true;
+
+  age.secrets.rowenname-dns-key.file = ../../secrets/rowenname-dns-key.age;
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "acme-dns@rowenna.me";
+
+    certs."rowenna.me" = {
+      domain = "rowenna.me";
+      extraDomainNames = [ "*.rowenna.me" ];
+      dnsProvider = "cloudflare";
+      dnsPropagationCheck = true;
+      credentialsFile = config.age.secrets.rowenname-dns-key.path;
+    };
+  };
 
   users.users.root.openssh.authorizedKeys.keys = rowKeys;
   users.users = {
