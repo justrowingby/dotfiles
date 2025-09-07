@@ -9,6 +9,7 @@ with pkgs; [
   nil # you'll immediately want a nix LSP on a new machine
   nixfmt-rfc-style # you'll immediately want a nix formatter on a new machine
   openssh # ensure macOS profiles can use non-busted ssh tools
+  ragenix
   tree
   wget
 ]

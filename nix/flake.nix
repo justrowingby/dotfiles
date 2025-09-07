@@ -1,13 +1,9 @@
 {
   inputs = {
     flakey-profile.url = "github:lf-/flakey-profile";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-mainline.url = "github:nixos/nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
-    lix-src = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
@@ -16,13 +12,31 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.lix.follows = "lix-src";
     };
+    lix-src = {
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-mainline.url = "github:nixos/nixpkgs";
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.agenix.inputs.darwin.follows = "";
+      inputs.agenix.inputs.home-manager.follows = "";
+      inputs.agenix.inputs.systems.follows = "systems";
+    };
+    systems.url = "github:nix-systems/default";
   };
-  outputs = { self, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, lix-src, lix-module, flakey-profile, flake-utils }: {
+  outputs = { self, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, ragenix, systems }: {
     nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
       modules = [
         lix-module.nixosModules.default
+        ragenix.nixosModules.default
         machines/vm/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -37,6 +51,7 @@
       
       modules = [
         lix-module.nixosModules.default
+        ragenix.nixosModules.default
         machines/infected-droplet/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -51,6 +66,7 @@
       
       modules = [
         lix-module.nixosModules.default
+        ragenix.nixosModules.default
         machines/pearl/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -71,9 +87,9 @@
       # non-default nixpkgs instances to other nix modules
       specialArgs = {
         pkgs-unstable = import nixpkgs-unstable {
-	  inherit system;
-	  config-allowUnfree = true;
-	};
+	        inherit system;
+	        config-allowUnfree = true;
+	      };
         pkgs-mainline = import nixpkgs-mainline {
           inherit system;
           config.allowUnfree = true;
