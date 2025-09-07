@@ -1,5 +1,6 @@
 pkgs:
 with pkgs; [
+  age-plugin-yubikey
   coreutils-prefixed
   file
   fish
