@@ -2,6 +2,7 @@ pkgs:
 with pkgs; [
   ## software "currently" in use
 
+  nodepackages.bash-language-server
   ffmpeg # it's ffmpeg.
   gnutar # the tar that ships on macOS is so unbelievably unusable, use this instead
   gnused # another GNU util we want on macOS
@@ -12,6 +13,7 @@ with pkgs; [
   nix-diff # for diffing derivations
   tmux # screen but with nice iterm2 integration on macOS
   unzip # for unzipping.
+  wireguard-tools
   /* notably lacking is python3.
     you'll want to be able to get a repl on any system,
     but the way we'd do this with nix (specify all possible packages in advance)
