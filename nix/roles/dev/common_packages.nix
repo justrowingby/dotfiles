@@ -2,7 +2,7 @@ pkgs:
 with pkgs; [
   ## software "currently" in use
 
-  nodepackages.bash-language-server
+  bash-language-server
   ffmpeg # it's ffmpeg.
   gnutar # the tar that ships on macOS is so unbelievably unusable, use this instead
   gnused # another GNU util we want on macOS
