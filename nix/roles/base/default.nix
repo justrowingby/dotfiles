@@ -41,14 +41,4 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-
-  i18n.inputMethod.fcitx5 = {
-    waylandFrontend = true;
-    addons = with pkgs; [ fcitx5-mozc-ut ];
-  };
-
-  i18n.inputMethod.enable = true;
-  i18n.inputMethod.type = "fcitx5";
-
-
 }

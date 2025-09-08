@@ -11,6 +11,7 @@
       ../../roles/base
       ../../roles/dev
       ../../roles/gui_base
+      ../../roles/fcitx-wayland
     ];
 
   # Bootloader.
