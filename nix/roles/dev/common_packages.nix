@@ -3,14 +3,20 @@ with pkgs; [
   ## software "currently" in use
 
   bash-language-server
+  difftastic # difft: syntax-aware diff
   ffmpeg # it's ffmpeg.
   gnutar # the tar that ships on macOS is so unbelievably unusable, use this instead
   gnused # another GNU util we want on macOS
   gnugrep # another GNU util we want on macOS
+  jujutsu # tentatively trying it out
   yt-dlp # the latterday fork of deceased youtube-dl
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
+  mergiraf # syntax-aware git merge driver
+  ninja # the dead simple incremental build system
   nix-diff # for diffing derivations
+  ripgrep # fast grep recursively over a dir
+  shellcheck # tells you what your bash crimes are
   tmux # screen but with nice iterm2 integration on macOS
   unzip # for unzipping.
   wireguard-tools
@@ -37,7 +43,6 @@ with pkgs; [
   nix-index # you have a regex pattern for a file? you think that file exists in the build of *some* package(s) in nixpkgs but don't have a clue which ones / what their name is? surely you would not regret simply grepping the entire set of files that exists in all of the derivations in nixpkgs
   #nix-doc # ctags for nix. also searchable  nix docs.
   nix-output-monitor # pipe nix-build into nom and it creates nice graph visualization of your build progress. wiggles has contributed to this.
-  shellcheck # run this on a bash program and it'll tell you what your bash crimes are. like really bully you fr not knowing how to write bash.
   # rustfilt # removed from nixpkgs due to lack of upstream maintenance # if you get bad rust stacktraces that are "mangled", we're told this helps
   # diffoscope # hardcore two file diff software, whether the files are tarballs, iso images, directories, whatever. will recursively figure out as much diffable structure as possible.
   typst # the typst compiler, for writing markdown-ish w LaTeX-ish in it
