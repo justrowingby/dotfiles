@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -eu
 scriptdir=$(cd "$(dirname -- "$0")" ; pwd -P)
 
 sudo nix --extra-experimental-features "nix-command flakes" run "$scriptdir"/..#system-lix-profile.switch

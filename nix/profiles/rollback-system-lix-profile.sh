@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -eu
 SECOND_HIGHEST_NUMBER=$(echo /nix/var/nix/profiles/default-*-link | grep -Eo '[0-9]+' | sort -n -r | head -n 2 | tail -n 1)
 sudo /nix/var/nix/profiles/default-"$SECOND_HIGHEST_NUMBER"-link/bin/nix-env --rollback --profile /nix/var/nix/profiles/default
 
