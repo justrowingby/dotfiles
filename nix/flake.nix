@@ -120,9 +120,9 @@
         paths = (commonBasePkgs pkgs);
       };
       packages.dev-profile = flakey-profile.lib.mkProfile {
-        inherit pkgs;
+        pkgs = specialArgs.pkgs-unstable;
         # Specifies things to pin in the flake registry and in NIX_PATH.
-        pinned = { nixpkgs = toString nixpkgs-stable; };
+        pinned = { nixpkgs = toString nixpkgs-unstable; };
         paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
       };
       packages.system-lix-profile = lix-module.packages."${system}".system-profile;
