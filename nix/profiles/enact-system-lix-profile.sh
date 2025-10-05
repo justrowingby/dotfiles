@@ -3,6 +3,7 @@
 set -eu
 scriptdir=$(cd "$(dirname -- "$0")" ; pwd -P)
 
+nix --extra-experimental-features "nix-command flakes" build "$scriptdir"/..#system-lix-profile
 sudo nix --extra-experimental-features "nix-command flakes" run "$scriptdir"/..#system-lix-profile.switch
 
 if type systemctl >/dev/null 2>&1 ; then
