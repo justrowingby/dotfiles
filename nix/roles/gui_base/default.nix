@@ -45,13 +45,6 @@
     # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
   services.displayManager = {
     autoLogin = {
       enable = false;
@@ -66,11 +59,7 @@
       };
     };
   };
-  #services.xserver.desktopManager.plasma5.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  #services.xserver.displayManager.autoLogin.enable = true;
-  #services.xserver.displayManager.autoLogin.user = "row";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
