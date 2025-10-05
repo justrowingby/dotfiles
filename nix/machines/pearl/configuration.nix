@@ -12,6 +12,7 @@
       ../../roles/dev
       ../../roles/gui_base
       ../../roles/fcitx-wayland
+      ../../users/row
     ];
 
   # Bootloader.
@@ -48,11 +49,6 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
-    row = {
-      isNormalUser = true;
-      description = "Rowenna Emma";
-      extraGroups = [ "networkmanager" "wheel" ];
-    };
     mirmo = {
       isNormalUser = true;
       description = "mirmo";
