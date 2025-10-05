@@ -11,3 +11,6 @@
 	helper = !gh auth git-credential
 [merge]
 	conflictStyle = zdiff3
+[alias]
+	leash = push --force-with-lease
+	dag = log --oneline --graph --decorate --all
