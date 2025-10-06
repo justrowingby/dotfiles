@@ -22,7 +22,17 @@
   networking.hostName = "pearl-nixos"; # Define your hostname.
 
   boot.kernelParams = ["gpu_sched.sched_policy=0"];
-  
+
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+  };
+
+  networking.firewall = {
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
+  };
+
   services.flatpak.enable = true;
   services.tailscale.enable = true;
   services.hardware.openrgb.enable = true;
