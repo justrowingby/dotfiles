@@ -1,6 +1,7 @@
 [alias]
 	leash = push --force-with-lease
 	dag = log --oneline --graph --decorate --all
+	lop = log -p --ext-diff
 [core]
 	abbrev = 9
 [credential "https://github.com"]
