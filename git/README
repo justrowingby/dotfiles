@@ -1,0 +1,37 @@
+if you need some machine-specific settings which should not be upstreamed,
+	eg diff user.email on a work computer,
+then rejoice, as you don't need to fully dup your defaults.
+
+we can create a ~/.gitconfig which inherits the git config in your git-tracked dotfiles,
+then overrides only certain values.
+
+this is possible because...
+1. when git is looking for a user's global git config, 
+	it checks .gitconfig before checking ~/.config/git
+2. git configs allow for `includes` statements
+3. for config values which are set multiple times within a single config,
+	the last declaration has highest precedence
+
+so you can keep defaults (eg your upstreamable `user`) in dotfiles, linked to ~/.config/git,
+then create a ~/.gitconfig with an include of ~/.config/git at the very top,
+
+you can imagine that your effective config is just a `cat` 
+	of the system git config in /etc,
+	the user git config,
+	the repo git config, 
+in that order
+
+and this strategy effectively augments that to being `cat` of
+	of the system config in /etc,
+	your ~/.config/git linked to this repo,
+	your not-upstreamable ~/.gitconfig for the specific machine,
+	the repo git config,
+in that order
+
+the only gotcha here is that any imperative 
+`git config --global`
+will add stuff to your `~/.gitconfig rather than your `~/.config/git/config`,
+which you might not have meant to do and won't be easy to notice 
+until it bites you when you expect the new config on another machine and it's missing.
+
+my current workaround to this problem is a fish abbr that expands to --file ~/.config/git rather than --global

@@ -1,16 +1,24 @@
-[init]
-	defaultBranch = mainline
-[user]
-	name = Rowenna Emma
-	email = git@rowenna.me
+[alias]
+	leash = push --force-with-lease
+	dag = log --oneline --graph --decorate --all
+[core]
+	abbrev = 9
 [credential "https://github.com"]
 	helper = 
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !gh auth git-credential
+[diff]
+	algorithm = histogram
+[format]
+	pretty = betterfuller
+[init]
+	defaultBranch = mainline
 [merge]
 	conflictStyle = zdiff3
-[alias]
-	leash = push --force-with-lease
-	dag = log --oneline --graph --decorate --all
+[pretty]
+	betterfuller = "format:%C(yellow)commit %h%C(auto)%>|(54)%d%n%x1b[2ma %aN <%aE> %>|(54)%ar%n%x1b[2mc %cN <%cE> %>|(54)%cr%n%w(0,4,4)%+s%n%+b"
+[user]
+	name = Rowenna Emma
+	email = git@rowenna.me

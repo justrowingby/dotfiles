@@ -18,6 +18,9 @@ if status is-interactive
     abbr --add gitca git commit --amend
     abbr --add gitad git add .
 
+    # in case --global points to a machine-specific ~/.gitconfig
+    abbr --add --position command gitconfig "git config --file ~/.config/git/config"
+
     # gnu ls
     abbr --add lltime gls -l -t -h --full-time
 
