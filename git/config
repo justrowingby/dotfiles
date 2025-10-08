@@ -11,6 +11,7 @@
 	helper = !gh auth git-credential
 [diff]
 	algorithm = histogram
+	external = difft
 [format]
 	pretty = betterfuller
 [init]
