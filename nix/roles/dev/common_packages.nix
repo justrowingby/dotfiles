@@ -15,6 +15,7 @@ with pkgs; [
   mergiraf # syntax-aware git merge driver
   ninja # the dead simple incremental build system
   nix-diff # for diffing derivations
+  nixos-rebuild # for deploying to nixox VMs
   ripgrep # fast grep recursively over a dir
   shellcheck # tells you what your bash crimes are
   tmux # screen but with nice iterm2 integration on macOS
