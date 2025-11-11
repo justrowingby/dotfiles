@@ -7,6 +7,7 @@ in
     "${modulesPath}/virtualisation/google-compute-image.nix"
     ../../roles/base
     ../../users/row
+    ../../roles/otel-gcp
   ];
   
   environment.systemPackages = (with pkgs; [

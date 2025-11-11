@@ -1,0 +1,101 @@
+processors:
+  # Detect and add resource attributes
+  resourcedetection:
+    detectors: [env, system, docker, ec2, gcp, azure]
+    timeout: 5s
+    override: false
+
+  # Batch data for efficient export
+  batch:
+    timeout: 10s
+    send_batch_size: 1024
+
+receivers:
+  hostmetrics:
+    # How often to collect metrics
+    collection_interval: 10s
+
+    # Configure individual scrapers
+    scrapers:
+      # CPU utilization metrics
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+
+      # Disk I/O metrics
+      disk:
+        # Exclude specific mount points
+        exclude:
+          devices: ["^/dev/loop.*"]
+
+      # File System utilization metrics
+      filesystem:
+        exclude:
+          mount_points: ["/tmp/*", "/dev/shm"]
+        include_fs_types:
+          match_type: strict
+          fs_types: [ext3, ext4, xfs, btrfs]
+
+      # CPU load average metrics (1, 5, 15 minutes)
+      load:
+
+      # Memory utilization metrics
+      memory:
+
+      # Network interface I/O metrics & TCP connection metrics
+      network:
+        include:
+          interfaces: ["eth0", "eth1"]
+
+      # Paging/Swap space utilization and I/O metrics
+      paging:
+
+      # Process count by status
+      process:
+
+      # Per-process metrics (requires elevated permissions)
+      processes:
+        include:
+          names: ["nginx", "postgres", "redis"]
+        mute_process_name_error: true
+
+exporters:
+  # The googlecloud exporter will export telemetry to different
+  # Google Cloud services:
+  # Logs -> Cloud Logging
+  # Metrics -> Cloud Monitoring
+  # Traces -> Cloud Trace
+  #
+  # Docs:
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/googlecloudexporter
+  googlecloud:
+    log:
+      default_log_name: opentelemetry-collector
+
+extensions:
+  # Opens an endpoint on 13133 that can be used to check the
+  # status of the collector. Since this does not configure the
+  # `path` config value, the endpoint will default to `/`.
+  #
+  # When running on Cloud Run, this extension is required and not optional.
+  # In other environments it is recommended but may not be required for operation
+  # (i.e. in Container-Optimized OS or other GCE environments).
+  #
+  # Docs:
+  # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/healthcheckextension
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+service:
+  extensions:
+  - health_check
+  pipelines:
+    metrics:
+      receivers:
+      - hostmetrics
+      processors:
+      - resourcedetection
+      - batch
+      exporters:
+      - googlecloud
