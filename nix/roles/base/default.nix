@@ -20,6 +20,13 @@ in
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+  
+  services.openssh = {
+    settings = {
+      PermitRootLogin = "prohibit-password";
+      PasswordAuthentication = false;
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
