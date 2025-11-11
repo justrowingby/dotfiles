@@ -1,5 +1,9 @@
 {
   inputs = {
+    agenix = {
+      url = "github:ryantm/agenix";
+      flake = false;
+    };
     flakey-profile.url = "github:lf-/flakey-profile";
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -19,24 +23,15 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.agenix.inputs.darwin.follows = "";
-      inputs.agenix.inputs.home-manager.follows = "";
-      inputs.agenix.inputs.systems.follows = "systems";
-    };
     systems.url = "github:nix-systems/default";
   };
-  outputs = { self, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, ragenix, systems }: {
+  outputs = { self, agenix, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, systems }: {
     nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
       modules = [
         lix-module.nixosModules.default
-        ragenix.nixosModules.default
+        "${agenix}/modules/age.nix"
         machines/vm/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -51,7 +46,7 @@
       
       modules = [
         lix-module.nixosModules.default
-        ragenix.nixosModules.default
+        "${agenix}/modules/age.nix"
         machines/infected-droplet/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -66,7 +61,7 @@
 
       modules = [
         lix-module.nixosModules.default
-        ragenix.nixosModules.default
+        "${agenix}/modules/age.nix"
         machines/gtfs-archiver/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
@@ -81,7 +76,7 @@
       
       modules = [
         lix-module.nixosModules.default
-        ragenix.nixosModules.default
+        "${agenix}/modules/age.nix"
         machines/pearl/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
