@@ -2,6 +2,7 @@ pkgs:
 with pkgs; [
   ## software "currently" in use
 
+  bash
   bash-language-server
   difftastic # difft: syntax-aware diff
   ffmpeg # it's ffmpeg.
