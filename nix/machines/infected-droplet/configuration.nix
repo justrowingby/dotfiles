@@ -1,24 +1,23 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, modulesPath, ... }:
 let 
   rowKeys = config.users.users.row.openssh.authorizedKeys.keys;
 in
 {
   imports = [
-    ./hardware-configuration.nix
-    ./networking.nix # generated at runtime by nixos-infect
+    ./disko-gpt-bios-compat-ext4.nix
+    "${modulesPath}/virtualisation/digital-ocean-config.nix"
     ../../roles/base
     ../../users/row
   ];
 
+  boot.loader.grub.devices = lib.mkForce [ "/dev/vda" ];
+
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
-  networking.hostName = "debian-s-1vcpu-512mb-10gb-sfo2-01";
-  networking.domain = "";
   services.openssh.enable = true;
-  services.do-agent.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = rowKeys;
 
   age.secrets.rowenname-dns-key.file = ../../secrets/rowenname-dns-key.age;
-
   security.acme = {
     acceptTerms = true;
     defaults.email = "acme-dns@rowenna.me";
@@ -32,10 +31,6 @@ in
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = rowKeys;
-  
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.05";
 }
