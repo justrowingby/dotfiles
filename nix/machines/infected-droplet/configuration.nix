@@ -4,13 +4,10 @@ let
 in
 {
   imports = [
-    ./disko-gpt-bios-compat-ext4.nix
-    "${modulesPath}/virtualisation/digital-ocean-config.nix"
+    "${modulesPath}/virtualisation/linode-image.nix"
     ../../roles/base
     ../../users/row
   ];
-
-  boot.loader.grub.devices = lib.mkForce [ "/dev/vda" ];
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;

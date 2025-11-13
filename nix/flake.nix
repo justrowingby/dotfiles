@@ -48,7 +48,6 @@
       modules = [
         lix-module.nixosModules.default
         "${agenix}/modules/age.nix"
-        disko.nixosModules.disko
         machines/infected-droplet/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
