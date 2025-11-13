@@ -41,13 +41,13 @@
         })
       ];
     };
-    nixosConfigurations.infected-droplet = nixpkgs-stable.lib.nixosSystem {
+    nixosConfigurations.nanode = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
       modules = [
         lix-module.nixosModules.default
         "${agenix}/modules/age.nix"
-        machines/infected-droplet/configuration.nix
+        machines/nanode/configuration.nix
         ({ ... }: {
           nix.registry.nixpkgs.to = {
             type = "path";
