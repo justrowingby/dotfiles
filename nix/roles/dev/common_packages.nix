@@ -2,6 +2,7 @@ pkgs:
 with pkgs; [
   ## software "currently" in use
 
+  age-plugin-yubikey
   bash
   bash-language-server
   difftastic # difft: syntax-aware diff
@@ -14,9 +15,12 @@ with pkgs; [
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
   mergiraf # syntax-aware git merge driver
+  nil # nix LSP
   ninja # the dead simple incremental build system
+  nixfmt-rfc-style # you'll immediately want a nix formatter on a new machine
   nix-diff # for diffing derivations
   nixos-rebuild # for deploying to nixox VMs
+  ragenix
   ripgrep # fast grep recursively over a dir
   shellcheck # tells you what your bash crimes are
   tmux # screen but with nice iterm2 integration on macOS
