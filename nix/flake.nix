@@ -4,7 +4,6 @@
       url = "github:ryantm/agenix";
       flake = false;
     };
-    disko.url = "github:nix-community/disko";
     flakey-profile.url = "github:lf-/flakey-profile";
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -26,7 +25,7 @@
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
     systems.url = "github:nix-systems/default";
   };
-  outputs = { self, agenix, disko, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, systems }: {
+  outputs = { self, agenix, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, systems }: {
     nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
       
