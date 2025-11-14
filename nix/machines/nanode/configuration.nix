@@ -34,9 +34,9 @@ in
     virtualHosts = {
       "sb.rowenna.me" = {
         useACMEHost = "rowenna.me";
-        extraConfig = ''
-          reverse_proxy :3000
-        '';
+        #extraConfig = ''
+        #  reverse_proxy :3000
+        #'';
       };
     };
   };
