@@ -13,7 +13,7 @@ in
   zramSwap.enable = true;
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = rowKeys;
-
+  networking.firewall.allowedTCPPorts = [ 443 ];
   age.secrets.rowenname-dns-key.file = ../../secrets/rowenname-dns-key.age;
   security.acme = {
     acceptTerms = true;
@@ -25,6 +25,19 @@ in
       dnsProvider = "cloudflare";
       dnsPropagationCheck = true;
       credentialsFile = config.age.secrets.rowenname-dns-key.path;
+    };
+  };
+
+  services.silverbullet.enable = true;
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "sb.rowenna.me" = {
+        useACMEHost = "rowenna.me";
+        extraConfig = ''
+          reverse_proxy :3000
+        '';
+      };
     };
   };
 
