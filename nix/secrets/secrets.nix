@@ -1,7 +1,7 @@
 let
   # put /etc/ssh/ssh_host_ed25519_key.pub here
   systems = {
-    infected-droplet = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAKEzP7/x5k/awBV0fTx6dtTj7qv+GUfFJDnuR/DwWCY root@debian-s-1vcpu-1gb-sfo2-01";
+    nanode = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwPNFZTfbYUbqsbFqej5FphugSz0Fk0to+A0lDA4KNr root@nanode-nixos-sea";
   };
   # put keys here which should be able to decrypt without a host key
   backupKeys = {
@@ -11,5 +11,5 @@ let
   allBackupKeys = builtins.attrValues backupKeys;
   allSystems = builtins.attrValues systems;
 in {
-  "rowenname-dns-key.age".publicKeys = allBackupKeys ++ [systems.infected-droplet];
+  "rowenname-dns-key.age".publicKeys = allBackupKeys ++ [systems.nanode];
 }
