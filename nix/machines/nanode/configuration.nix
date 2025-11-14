@@ -32,12 +32,6 @@ in
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "sb.rowenna.me" = {
-        useACMEHost = "rowenna.me";
-        #extraConfig = ''
-        #  reverse_proxy :3000
-        #'';
-      };
     };
   };
 
