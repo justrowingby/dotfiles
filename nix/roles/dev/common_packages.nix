@@ -14,6 +14,7 @@ with pkgs; [
   yt-dlp # the latterday fork of deceased youtube-dl
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
+  go # golang
   mergiraf # syntax-aware git merge driver
   nil # nix LSP
   ninja # the dead simple incremental build system
