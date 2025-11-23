@@ -28,7 +28,6 @@ in
     };
   };
 
-  services.silverbullet.enable = true;
   services.caddy = {
     enable = true;
     virtualHosts = {
