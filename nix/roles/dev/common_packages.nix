@@ -5,6 +5,7 @@ with pkgs; [
   age-plugin-yubikey
   bash
   bash-language-server
+  broot # dynamically explorable, searchable `tree` output
   difftastic # difft: syntax-aware diff
   ffmpeg # it's ffmpeg.
   gnutar # the tar that ships on macOS is so unbelievably unusable, use this instead
