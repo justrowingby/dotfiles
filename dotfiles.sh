@@ -52,13 +52,16 @@ function mk_config_dir_for_file() {
 }
 
 mkdir -p ~/.config
+cd "${scriptdir}"
 enact_link git ~/.config/git
 enact_link kate ~/.config/kate
 enact_link kitty ~/.config/kitty
 enact_link fish ~/.config/fish
 enact_link zsh/zprofile.sh ~/.zprofile
 enact_link zsh/zshrc.sh ~/.zshrc
+enact_link bin ~/.config/bin
 rm_broken_link ~/.oh-my-zsh
-default_link kitty/unchosen-kittyshell.bash kitty/kittyshell
+rm_broken_link kitty/kittyshell
+default_link bin/shell/unchosen-shell-warning.bash bin/shell/shell
 mk_config_dir_for_file ~/.config/Brewfile
 
