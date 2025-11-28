@@ -58,6 +58,7 @@ enact_link kate ~/.config/kate
 enact_link kitty ~/.config/kitty
 enact_link fish ~/.config/fish
 enact_link nvim ~/.config/nvim
+enact_link wezterm ~/.config/wezterm
 enact_link zsh/zprofile.sh ~/.zprofile
 enact_link zsh/zshrc.sh ~/.zshrc
 enact_link bin ~/.config/bin
