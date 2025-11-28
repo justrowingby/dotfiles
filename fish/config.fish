@@ -22,7 +22,7 @@ if status is-interactive
     abbr --add --position command gitconfig "git config --file ~/.config/git/config"
 
     # gnu ls
-    abbr --add lltime gls -l -t -h --full-time
+    abbr --add --position command lltime gls -l -t -h --full-time
 
     # eza
     abbr --add lz eza
