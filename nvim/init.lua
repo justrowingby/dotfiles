@@ -24,7 +24,8 @@ opt.expandtab = true
 
 opt.wrap = false
 opt.undofile = true
-
+-- dup of mode in status line
+opt.showmode = false
 -- aggressively write swap files for minimal data loss in case of crash
 opt.updatetime = 300
 
@@ -45,6 +46,10 @@ if vim.g.neovide then
   -- make cursor animation snappy short
   vim.g.neovide_cursor_animation_length = 0.010
   vim.g.neovide_cursor_trail_size = 0.10
+  -- make scrolling animation faster
+  vim.g.neovide_scroll_animation_length = 0.08
+  -- discourage unintentional sidescrolling
+  vim.g.neovide_touch_deadzone = 10.0
 end
 
 vim.lsp.enable({   -- nixpkgs name
@@ -68,86 +73,37 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
     },
     {
-      -- see https://github.com/nvim-treesitter/nvim-treesitter#quickstart
+      -- see https://github.com/nvim-treesitter/nvim-treesitter/tree/main#installation
+      -- parsers installed below
       "nvim-treesitter/nvim-treesitter",
       branch = 'main',
       lazy = false,
       build = ":TSUpdate",
-      opts = {
-        -- a list of parser names, or "all"
-        ensure_installed = {
-          'bash',
-          'c',
-          'clojure',
-          'commonlisp',
-          'cpp',
-          'css',
-          'diff',
-          'fish',
-          'git_config',
-          'git_rebase',
-          'gitignore',
-          'go',
-          'haskell',
-          'html',
-          'java',
-          'javascript',
-          'json',
-          'lua',
-          'markdown_inline',
-          'nix',
-          'php',
-          'prolog',
-          'proto',
-          'python',
-          'racket',
-          'ruby',
-          'rust',
-          'ssh_config',
-          'swift',
-          'systemverilog',
-          'typescript',
-          'typst',
-          'udev',
-          'vim',
-          'vimdoc',
-          'xml',
-          'zig',
-        },
-        sync_install = false,
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-        additional_vim_regex_highlighting = false,
-      }
     },
     {
+      -- setup color ordering below
       "HiPhish/rainbow-delimiters.nvim",
-      opts = {
-        highlight = {
-          -- use rainbow ordering
-          'RainbowDelimiterRed',
-          'RainbowDelimiterOrange',
-          'RainbowDelimiterYellow',
-          'RainbowDelimiterGreen',
-          'RainbowDelimiterCyan',
-          'RainbowDelimiterBlue',
-          'RainbowDelimiterViolet',
-        },
-      },
-      config = function(_, opts)
-        -- needed bc lazy fails to guess the setup module name
-        require("rainbow-delimiters.setup").setup(opts)
-      end,
     },
     {
-      -- for catpuccin-frappe; has to be set as colorscheme below
+      -- for catpuccin-frappe; set as colorscheme below
       "catppuccin/nvim",
       name = "catppuccin",
       priority = 1000,
+    },
+    {
+      -- minimal statusline, setup below
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+    {
+      -- modal commandline
+      "folke/noice.nvim",
+      event = "VeryLazy",
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      },
+      opts = {},
     },
     {
       -- lua library imports for editing vim config
@@ -186,12 +142,94 @@ require("lazy").setup({
   },
 })
 
--- setup must be called before loading
+-- colorscheme should be loaded before lualine
 vim.cmd.colorscheme "catppuccin-frappe"
+
+require('lualine').setup {
+  options = {
+    icons_enabled = false,
+    component_separators = { left = '|', right = '|' },
+    section_separators = { left = '', right = '' },
+  },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diagnostics' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {},
+    lualine_z = {}
+  },
+}
+
+require 'nvim-treesitter'.install {
+  'bash',
+  'c',
+  'clojure',
+  'commonlisp',
+  'cpp',
+  'css',
+  'diff',
+  'fish',
+  'git_config',
+  'git_rebase',
+  'gitignore',
+  'go',
+  'haskell',
+  'html',
+  'java',
+  'javascript',
+  'json',
+  'lua',
+  'markdown_inline',
+  'nix',
+  'php',
+  'prolog',
+  'proto',
+  'python',
+  'racket',
+  'regex',
+  'ruby',
+  'rust',
+  'ssh_config',
+  'swift',
+  'systemverilog',
+  'typescript',
+  'typst',
+  'udev',
+  'vim',
+  'vimdoc',
+  'xml',
+  'zig',
+}
+
+require("rainbow-delimiters.setup").setup({
+  highlight = {
+    -- use rainbow ordering
+    'RainbowDelimiterRed',
+    'RainbowDelimiterOrange',
+    'RainbowDelimiterYellow',
+    'RainbowDelimiterGreen',
+    'RainbowDelimiterCyan',
+    'RainbowDelimiterBlue',
+    'RainbowDelimiterViolet',
+  },
+})
 
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd('FileType', {
   pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
+  callback = function()
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    vim.treesitter.start()
+  end,
 })
