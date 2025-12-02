@@ -194,6 +194,7 @@ require 'nvim-treesitter'.install {
   'prolog',
   'proto',
   'python',
+  'query',
   'racket',
   'regex',
   'ruby',
