@@ -12,10 +12,12 @@ with pkgs; [
   gnused # another GNU util we want on macOS
   gnugrep # another GNU util we want on macOS
   jujutsu # tentatively trying it out
+  lua-language-server
   yt-dlp # the latterday fork of deceased youtube-dl
   git-credential-oauth # for OAuthing to common remote locations
   gh # for github actions
   go # golang
+  gopls # lsp for golang
   mergiraf # syntax-aware git merge driver
   nil # nix LSP
   ninja # the dead simple incremental build system
@@ -26,6 +28,9 @@ with pkgs; [
   ripgrep # fast grep recursively over a dir
   shellcheck # tells you what your bash crimes are
   tmux # screen but with nice iterm2 integration on macOS
+  tree-sitter # for nvim-treesitter#main
+  typescript
+  typescript-language-server
   unzip # for unzipping.
   wireguard-tools
   /* notably lacking is python3.
