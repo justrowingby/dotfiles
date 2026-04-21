@@ -11,7 +11,7 @@
     };
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flakey-profile.follows = "flakey-profile";
       inputs.flake-utils.follows = "flake-utils";
       inputs.lix.follows = "lix-src";
