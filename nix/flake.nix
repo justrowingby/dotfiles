@@ -20,7 +20,7 @@
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
       flake = false;
     };
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
     systems.url = "github:nix-systems/default";
