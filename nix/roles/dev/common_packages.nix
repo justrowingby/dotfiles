@@ -63,6 +63,7 @@ with pkgs; [
   graphviz # for making autogen'd graphs like we've seen in java applets showing data relations in knowledge bases
   p7zip # for when you want lz or whatever
   simple-http-server # minimal http server, written in rust, we're told it's dependable enough to use in demos (unlike the typical python one)
+  yq # like jq but for yaml
 
   ## aspirationally included software (software we've used but haven't touched in at least a year)
 
