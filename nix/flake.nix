@@ -90,24 +90,28 @@
     let
       pkgs = import nixpkgs-stable {
         inherit system;
+        overlays = [ darwin-codesign-fix ];
         config.allowUnfree = true;
       };
-      
+
       # The `specialArgs` parameter passes the
       # non-default nixpkgs instances to other nix modules
       specialArgs = {
         pkgs-unstable = import nixpkgs-unstable {
 	        inherit system;
+          overlays = [ darwin-codesign-fix ];
 	        config-allowUnfree = true;
 	      };
         pkgs-mainline = import nixpkgs-mainline {
           inherit system;
+          overlays = [ darwin-codesign-fix ];
           config.allowUnfree = true;
         };
       };
-      
+
       commonBasePkgs = import roles/base/common_packages.nix;
       commonDevPkgs = import roles/dev/common_packages.nix;
+      darwin-codesign-fix = import overlays/darwin-codesign-fix.nix;
     in
     {
       # Any extra arguments to mkProfile are forwarded directly to pkgs.buildEnv.
@@ -132,7 +136,7 @@
       packages.dev-profile = flakey-profile.lib.mkProfile {
         pkgs = specialArgs.pkgs-unstable;
         # Specifies things to pin in the flake registry and in NIX_PATH.
-        pinned = { nixpkgs = toString nixpkgs-unstable; };
+        pinned = { nixpkgs = toString nixpkgs-stable; };
         paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
       };
       packages.system-lix-profile = lix-module.packages."${system}".system-profile;
