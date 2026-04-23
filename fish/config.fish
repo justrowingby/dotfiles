@@ -30,3 +30,5 @@ if status is-interactive
     abbr --add tz2 eza -T -L 2
     abbr --add tz3 eza -T -L 3
 end
+
+direnv hook fish | source
