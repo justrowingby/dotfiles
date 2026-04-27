@@ -1,4 +1,4 @@
--- requires nvim 0.11.x
+-- requires nvim 0.11.7+
 
 require("lazybootstrap")
 
@@ -71,6 +71,16 @@ require("lazy").setup({
       -- :[bufrange]DiffviewFileHistory [paths] [options]
       -- see for more https://github.com/sindrets/diffview.nvim
       "sindrets/diffview.nvim",
+    },
+    {
+      -- :Telescope find_files , :Telescope live grep
+      'nvim-telescope/telescope.nvim',
+      version = '*',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        -- optional but recommended
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      },
     },
     {
       -- see https://github.com/nvim-treesitter/nvim-treesitter/tree/main#installation
@@ -167,6 +177,10 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
+}
+
+require('telescope').setup {
+  -- ...
 }
 
 require 'nvim-treesitter'.install {
