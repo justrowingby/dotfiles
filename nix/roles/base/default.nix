@@ -1,8 +1,30 @@
-{ config, pkgs, lib, ... }:
-let 
+{ config, pkgs, inputs, ... }:
+let
   commonPkgs = import ./common_packages.nix;
 in
 {
+  imports = [
+    inputs.lix-module.nixosModules.default
+    "${inputs.agenix}/modules/age.nix"
+    ({ ... }: {
+      nix.registry.nixpkgs.to = {
+        type = "path";
+        path = inputs.nixpkgs-stable;
+      };
+    })
+  ];
+
+  # this adds `pkgs-unstable` as a nixos module specialArg
+  _module.args.pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    inherit (config.nixpkgs) config;
+  };
+  # this adds `pkgs-mainline` as a nixos module specialArg
+  _module.args.pkgs-mainline = import inputs.nixpkgs-mainline {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    inherit (config.nixpkgs) config;
+  };
+
   nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
   nix.settings = {
@@ -13,14 +35,14 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; ((commonPkgs pkgs) ++ [
-    zsh 
+    zsh
   ]);
 
   environment.variables = with pkgs; {
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
-  
+
   services.openssh = {
     settings = {
       PermitRootLogin = "prohibit-password";
@@ -30,7 +52,7 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, pkgs-latest, ... }:
+{ config, pkgs, lib, pkgs-unstable, ... }:
 {
   environment.systemPackages = ((with pkgs; [
     v4l-utils
@@ -33,7 +33,7 @@
 
     libva-utils
   ]) ++
-  (with pkgs-latest; [
+  (with pkgs-unstable; [
     #signal-desktop
   ]));
 

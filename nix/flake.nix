@@ -25,66 +25,34 @@
     nixpkgs-mainline.url = "github:nixos/nixpkgs";
     systems.url = "github:nix-systems/default";
   };
-  outputs = { self, agenix, flakey-profile, flake-utils, lix-module, lix-src, nixpkgs-stable, nixpkgs-unstable, nixpkgs-mainline, systems }: {
+  outputs = {
+    flakey-profile,
+    flake-utils,
+    lix-module,
+    nixpkgs-stable,
+    nixpkgs-unstable,
+    nixpkgs-mainline,
+    ...
+  }@inputs: {
     nixosConfigurations.vm = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
-      
-      modules = [
-        lix-module.nixosModules.default
-        "${agenix}/modules/age.nix"
-        machines/vm/configuration.nix
-        ({ ... }: {
-          nix.registry.nixpkgs.to = {
-            type = "path";
-            path = nixpkgs-stable;
-          };
-        })
-      ];
+      modules = [ machines/vm ];
+      specialArgs = { inherit inputs; };
     };
     nixosConfigurations.nanode = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
-      
-      modules = [
-        lix-module.nixosModules.default
-        "${agenix}/modules/age.nix"
-        machines/nanode/configuration.nix
-        ({ ... }: {
-          nix.registry.nixpkgs.to = {
-            type = "path";
-            path = nixpkgs-stable;
-          };
-        })
-      ];
+      modules = [ machines/nanode ];
+      specialArgs = { inherit inputs; };
     };
     nixosConfigurations.gtfs-archiver = nixpkgs-stable.lib.nixosSystem {
       system = "x86_64-linux";
-
-      modules = [
-        lix-module.nixosModules.default
-        "${agenix}/modules/age.nix"
-        machines/gtfs-archiver/configuration.nix
-        ({ ... }: {
-          nix.registry.nixpkgs.to = {
-            type = "path";
-            path = nixpkgs-stable;
-          };
-        })
-      ];
+      modules = [ machines/gtfs-archiver ];
+      specialArgs = { inherit inputs; };
     };
-    nixosConfigurations.pearl = nixpkgs-stable.lib.nixosSystem rec {
-      system = "x86_64-linux"; 
-      
-      modules = [
-        lix-module.nixosModules.default
-        "${agenix}/modules/age.nix"
-        machines/pearl/configuration.nix
-        ({ ... }: {
-          nix.registry.nixpkgs.to = {
-            type = "path";
-            path = nixpkgs-stable;
-          };
-        })
-      ];
+    nixosConfigurations.pearl = nixpkgs-stable.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ machines/pearl ];
+      specialArgs = { inherit inputs; };
     };
    } // (flake-utils.lib.eachDefaultSystem (system:
     let
@@ -93,20 +61,15 @@
         overlays = [ darwin-codesign-fix ];
         config.allowUnfree = true;
       };
-
-      # The `specialArgs` parameter passes the
-      # non-default nixpkgs instances to other nix modules
-      specialArgs = {
-        pkgs-unstable = import nixpkgs-unstable {
-	        inherit system;
-          overlays = [ darwin-codesign-fix ];
-	        config-allowUnfree = true;
-	      };
-        pkgs-mainline = import nixpkgs-mainline {
-          inherit system;
-          overlays = [ darwin-codesign-fix ];
-          config.allowUnfree = true;
-        };
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        overlays = [ darwin-codesign-fix ];
+        config-allowUnfree = true;
+      };
+      pkgs-mainline = import nixpkgs-mainline {
+        inherit system;
+        overlays = [ darwin-codesign-fix ];
+        config.allowUnfree = true;
       };
 
       commonBasePkgs = import roles/base/common_packages.nix;
@@ -134,7 +97,7 @@
         paths = (commonBasePkgs pkgs);
       };
       packages.dev-profile = flakey-profile.lib.mkProfile {
-        pkgs = specialArgs.pkgs-unstable;
+        pkgs = pkgs-unstable;
         # Specifies things to pin in the flake registry and in NIX_PATH.
         pinned = { nixpkgs = toString nixpkgs-stable; };
         paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
