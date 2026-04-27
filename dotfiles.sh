@@ -54,6 +54,7 @@ function mk_config_dir_for_file() {
 mkdir -p ~/.config
 cd "${scriptdir}"
 enact_link git ~/.config/git
+enact_link jj/config.toml ~/.config/jj/config.toml
 enact_link kate ~/.config/kate
 enact_link kitty ~/.config/kitty
 enact_link fish ~/.config/fish
