@@ -99,8 +99,8 @@
       packages.dev-profile = flakey-profile.lib.mkProfile {
         pkgs = pkgs-unstable;
         # Specifies things to pin in the flake registry and in NIX_PATH.
-        pinned = { nixpkgs = toString nixpkgs-stable; };
-        paths = (commonBasePkgs pkgs) ++ (commonDevPkgs pkgs);
+        pinned = { nixpkgs = toString nixpkgs-unstable; };
+        paths = (commonBasePkgs pkgs-unstable) ++ (commonDevPkgs pkgs-unstable);
       };
       packages.system-lix-profile = lix-module.packages."${system}".system-profile;
     }
