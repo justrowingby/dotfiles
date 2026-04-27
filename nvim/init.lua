@@ -82,6 +82,7 @@ require("lazy").setup({
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       },
     },
+    { "stevearc/conform.nvim", }, -- meta formatter, wraps lsp formatters
     {
       -- see https://github.com/nvim-treesitter/nvim-treesitter/tree/main#installation
       -- parsers installed below
@@ -182,6 +183,16 @@ require('lualine').setup {
 require('telescope').setup {
   -- ...
 }
+
+require("conform").setup({
+  formatters_by_ft = {
+    go = { "goimports", "gofmt" },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
+})
 
 require 'nvim-treesitter'.install {
   'bash',
